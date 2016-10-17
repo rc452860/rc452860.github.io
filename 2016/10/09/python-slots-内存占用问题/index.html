@@ -1,0 +1,576 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="通过Python的slots节省9GB内存
+
+今天看python的时候看到这片文章觉得很有意思于是自己试验了一下。但是并没有传说中的效果不知道我姿势不对还是什么问题下次再来试试。
+本文使用 memory_profiler测试python内存占用
+安装memory_profiler12pip install -U memory_profilerpip install psutil
+使用命令1pyt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python __slots__ 内存占用问题">
+<meta property="og:url" content="http://yoursite.com/2016/10/09/python-slots-内存占用问题/index.html">
+<meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="通过Python的slots节省9GB内存
+
+今天看python的时候看到这片文章觉得很有意思于是自己试验了一下。但是并没有传说中的效果不知道我姿势不对还是什么问题下次再来试试。
+本文使用 memory_profiler测试python内存占用
+安装memory_profiler12pip install -U memory_profilerpip install psutil
+使用命令1pyt">
+<meta property="og:updated_time" content="2016-10-09T04:01:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python __slots__ 内存占用问题">
+<meta name="twitter:description" content="通过Python的slots节省9GB内存
+
+今天看python的时候看到这片文章觉得很有意思于是自己试验了一下。但是并没有传说中的效果不知道我姿势不对还是什么问题下次再来试试。
+本文使用 memory_profiler测试python内存占用
+安装memory_profiler12pip install -U memory_profilerpip install psutil
+使用命令1pyt">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> python __slots__ 内存占用问题 | Sakura </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Sakura</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">樱色渐随春雨尽 容颜难在满忧思</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python __slots__ 内存占用问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T10:59:10+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://segmentfault.com/a/1190000002492474" target="_blank" rel="external">通过Python的<strong>slots</strong>节省9GB内存</a></p>
+</blockquote>
+<p>今天看python的时候看到这片文章觉得很有意思于是自己试验了一下。但是并没有传说中的效果不知道我姿势不对还是什么问题下次再来试试。</p>
+<p>本文使用 memory_profiler测试python内存占用</p>
+<p>安装memory_profiler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install -U memory_profiler</div><div class="line">pip install psutil</div></pre></td></tr></table></figure></p>
+<p>使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m memory_profiler main.py</div></pre></td></tr></table></figure></p>
+<p>测试源码:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">this is test for learn python</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="keyword">import</span> os, sys</div><div class="line"></div><div class="line"><span class="keyword">from</span> memory_profiler <span class="keyword">import</span> profile</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span><span class="params">(object)</span>:</span></div><div class="line">    __slots__ = [<span class="string">'year'</span>, <span class="string">'month'</span>, <span class="string">'day'</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, year, month, day)</span>:</span></div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date2</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, year, month, day)</span>:</span></div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@profile</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>*<span class="number">10000</span>):</div><div class="line">        Date(<span class="number">2016</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@profile</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>*<span class="number">10000</span>):</div><div class="line">        Date2(<span class="number">2016</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    test()</div><div class="line">    test2()</div></pre></td></tr></table></figure></p>
+<p>最后拿到的测试结果是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">skydeiMac-6:untitled2 sky$ python -m memory_profiler main.py </div><div class="line">Filename: main.py</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">Line #    Mem usage    Increment   Line Contents</div><div class="line">================================================</div><div class="line">    28     10.1 MiB      0.0 MiB   @profile</div><div class="line">    29                             def main():</div><div class="line">    30     13.2 MiB      3.1 MiB       for i in range(0,10*10000):</div><div class="line">    31     13.2 MiB      0.0 MiB           Date(2016,1,1)</div><div class="line"></div><div class="line"></div><div class="line">Filename: main.py</div><div class="line"></div><div class="line"></div><div class="line">Line #    Mem usage    Increment   Line Contents</div><div class="line">================================================</div><div class="line">    33     13.2 MiB      0.0 MiB   @profile</div><div class="line">    34                             def main2():</div><div class="line">    35     13.2 MiB      0.0 MiB       for i in range(0,10*10000):</div><div class="line">    36     13.2 MiB      0.0 MiB           Date2(2016,1,1)</div></pre></td></tr></table></figure></p>
+<p>2016年10月09日11:10:43 更新：</p>
+<p>上面测试代码有问题，python采用引用计数的方式来实现内存回收。如果一个实例没有被引用的话会在一定时间内被回收。所以上面的只有一个变量被保存在内存里所以看不出来什么，我改进了一下测试代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">this is test for learn python</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="keyword">import</span> os, sys</div><div class="line"></div><div class="line"><span class="keyword">from</span> memory_profiler <span class="keyword">import</span> profile</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span><span class="params">(object)</span>:</span></div><div class="line">    __slots__ = [<span class="string">'year'</span>, <span class="string">'month'</span>, <span class="string">'day'</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, year, month, day)</span>:</span></div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date2</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, year, month, day)</span>:</span></div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@profile</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>*<span class="number">10000</span>):</div><div class="line">        locals()[<span class="string">"sakura"</span>+str(i)] = Date(<span class="number">2016</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@profile</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>*<span class="number">10000</span>):</div><div class="line">        locals()[<span class="string">"sakura2"</span>+str(i)] = Date2(<span class="number">2016</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    test()</div><div class="line">    test2()</div></pre></td></tr></table></figure>
+<p>这一次的测试结果和预期一样。<strong>slots</strong>确实能节省内存。</p>
+<p>这是本次的测试代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Filename: main.py</div><div class="line"></div><div class="line">Line #    Mem usage    Increment   Line Contents</div><div class="line">================================================</div><div class="line">    30     10.0 MiB      0.0 MiB   @profile</div><div class="line">    31                             def test():</div><div class="line">    32     34.5 MiB     24.5 MiB       for i in range(0,10*10000):</div><div class="line">    33     34.5 MiB      0.0 MiB           locals()[&quot;sakura&quot;+str(i)] = Date(2016,1,1)</div><div class="line"></div><div class="line"></div><div class="line">Filename: main.py</div><div class="line"></div><div class="line">Line #    Mem usage    Increment   Line Contents</div><div class="line">================================================</div><div class="line">    36     23.0 MiB      0.0 MiB   @profile</div><div class="line">    37                             def test2():</div><div class="line">    38     62.4 MiB     39.4 MiB       for i in range(0,10*10000):</div><div class="line">    39     62.4 MiB      0.0 MiB           locals()[&quot;sakura2&quot;+str(i)] = Date2(2016,1,1)</div></pre></td></tr></table></figure></p>
+<p>还有一个问题没有搞明白。<br>dir() 与 <strong>dict</strong>，<strong>slots</strong> 的关系<br>下面是我做的一些测试，不过我后来找到一篇博客写的非常好<br><a href="http://www.cnblogs.com/ifantastic/p/3768415.html" target="_blank" rel="external">[Python] dir() 与 <strong>dict</strong>，<strong>slots</strong> 的区别</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Date(object):</div><div class="line"></div><div class="line">    __slots__ = (&apos;year&apos;, &apos;month&apos;, &apos;day&apos;)</div><div class="line"></div><div class="line">    def __init__(self, year, month, day):</div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line">class Date2(object):</div><div class="line"></div><div class="line">    def __init__(self, year, month, day):</div><div class="line">        self.year = year</div><div class="line">        self.month = month</div><div class="line">        self.day = day</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    print dir(Date(2016,1,1))</div><div class="line">    print dir(Date2(2016,1,1))</div><div class="line">    print dir(Date)</div><div class="line">    print dir(Date2)</div><div class="line">    print dir(object)</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__module__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__slots__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;day&apos;, &apos;month&apos;, &apos;year&apos;]</div><div class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__module__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;, &apos;day&apos;, &apos;month&apos;, &apos;year&apos;]</div><div class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__module__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__slots__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;day&apos;, &apos;month&apos;, &apos;year&apos;]</div><div class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__module__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;]</div><div class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;]</div></pre></td></tr></table></figure>
+<p>下结论之前一定要多测试几次。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/03/Linux-22端口被爆破的解决办法/" rel="next" title="Linux 22端口被爆破的解决办法">
+                <i class="fa fa-chevron-left"></i> Linux 22端口被爆破的解决办法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/记录一下我升级React Native项目的步骤/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="樱の泪" />
+          <p class="site-author-name" itemprop="name">樱の泪</p>
+          <p class="site-description motion-element" itemprop="description">樱色渐随春雨尽 容颜难在满忧思</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">樱の泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

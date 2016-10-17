@@ -1,0 +1,657 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="VPN PPTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在vultr上购买了一个日本节点的vps搭建vpn服务器。之前也有用其他服务器搭建过vpn。但是今天一直没弄成功。
+虚拟化技术搭建pptp服务器其实很简单。首先确定你购买的服务器是属于那种虚拟技术的
+
+
+
+虚拟化类型
+特性
+
+
+
+
+Xen
+半虚拟化技术 可以加载内核模块 内存独占 硬盘小 带宽小
+
+
+OpenVz
+类似于Docker容器 无法升级内核
+
+
+Kvm
+完全虚拟化可以运行各种类型的操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于VPN搭建的一些问题">
+<meta property="og:url" content="http://yoursite.com/2016/09/26/VPN搭建的一些问题/index.html">
+<meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="在vultr上购买了一个日本节点的vps搭建vpn服务器。之前也有用其他服务器搭建过vpn。但是今天一直没弄成功。
+虚拟化技术搭建pptp服务器其实很简单。首先确定你购买的服务器是属于那种虚拟技术的
+
+
+
+虚拟化类型
+特性
+
+
+
+
+Xen
+半虚拟化技术 可以加载内核模块 内存独占 硬盘小 带宽小
+
+
+OpenVz
+类似于Docker容器 无法升级内核
+
+
+Kvm
+完全虚拟化可以运行各种类型的操作系">
+<meta property="og:updated_time" content="2016-10-09T04:01:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于VPN搭建的一些问题">
+<meta name="twitter:description" content="在vultr上购买了一个日本节点的vps搭建vpn服务器。之前也有用其他服务器搭建过vpn。但是今天一直没弄成功。
+虚拟化技术搭建pptp服务器其实很简单。首先确定你购买的服务器是属于那种虚拟技术的
+
+
+
+虚拟化类型
+特性
+
+
+
+
+Xen
+半虚拟化技术 可以加载内核模块 内存独占 硬盘小 带宽小
+
+
+OpenVz
+类似于Docker容器 无法升级内核
+
+
+Kvm
+完全虚拟化可以运行各种类型的操作系">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 关于VPN搭建的一些问题 | Sakura </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Sakura</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">樱色渐随春雨尽 容颜难在满忧思</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于VPN搭建的一些问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T22:29:19+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在vultr上购买了一个日本节点的vps搭建vpn服务器。之前也有用其他服务器搭建过vpn。但是今天一直没弄成功。</p>
+<h3 id="虚拟化技术"><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h3><p>搭建pptp服务器其实很简单。首先确定你购买的服务器是属于那种虚拟技术的</p>
+<table>
+<thead>
+<tr>
+<th>虚拟化类型</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xen</td>
+<td>半虚拟化技术 可以加载内核模块 内存独占 硬盘小 带宽小</td>
+</tr>
+<tr>
+<td>OpenVz</td>
+<td>类似于Docker容器 无法升级内核</td>
+</tr>
+<tr>
+<td>Kvm</td>
+<td>完全虚拟化可以运行各种类型的操作系统包括windows</td>
+</tr>
+</tbody>
+</table>
+<p>具体的大家可以去看 <a href="http://www.xshell.net/linux/1491.html" target="_blank" rel="external">VPS虚拟化产品 - Xen、OpenVZ、KVM、Hyper-V、VMWare虚拟化技术介绍</a></p>
+<p>这三种虚拟类型都是可以安装pptp的但是有些厂家把Tun/Tap给禁用了。自己可以去看看有的面板是可以打开的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/ppp</div><div class="line">cat: /dev/ppp: No such device or address    #返回这个说明PPP已经开启。</div><div class="line">cat /dev/net/tun</div><div class="line">cat: /dev/net/tun: File descriptor in bad state    #返回这个说明Tun/Tap已经开启。</div></pre></td></tr></table></figure>
+<p>然后确定自己vps是符合安装pptp要求的话那么就可以通过系统自带的包管理工具下载PPTP了</p>
+<h3 id="下载安装pptp"><a href="#下载安装pptp" class="headerlink" title="下载安装pptp"></a>下载安装pptp</h3><p>比如：ubuntu使用<code>apt-get install -y pptp</code> centos使用<code>yum install -y pptp</code></p>
+<p>一般的包管理工具会自动去解析依赖项把ppp给装上</p>
+<h3 id="关于pptp协议"><a href="#关于pptp协议" class="headerlink" title="关于pptp协议"></a>关于pptp协议</h3><p>pptp是基于ppp上面第一个协议。具体的去看<a href="http://www.ietf.org/rfc/rfc2637.txt" target="_blank" rel="external">rfc 2637</a></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>完了就要开始配置配置文件了，一般会有三个文件给你配置<code>/etc/pptpd.conf</code> <code>/etc/ppp/options.pptpd</code> <code>/etc/ppp/chap-secrets</code></p>
+<p>配置<code>/etc/pptpd.conf</code>守护进程设置，一般配置本地IP和用户IP段就好了。具体的可以看配置文件中的注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">option /etc/ppp/options.pptpd</div><div class="line">logwtmp</div><div class="line">localip 192.168.80.1</div><div class="line">remoteip 192.168.80.101-200</div></pre></td></tr></table></figure>
+<p>配置PPTP设置 <code>/etc/ppp/options.pptpd</code> 配置名字 使用的加密方法 以及dns还有一些其他选项。具体还是去看配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name pptpd</div><div class="line">refuse-pap</div><div class="line">refuse-chap</div><div class="line">refuse-mschap</div><div class="line">require-mschap-v2</div><div class="line">require-mppe-128</div><div class="line">proxyarp</div><div class="line">lock</div><div class="line">nobsdcomp </div><div class="line">novj</div><div class="line">novjccomp</div><div class="line">nologfd</div><div class="line">ms-dns 8.8.8.8</div><div class="line">ms-dns 8.8.4.4</div></pre></td></tr></table></figure>
+<p>最后一个文件是设置密码的<code>/etc/ppp/chap-secrets</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#格式： 用户名 pptpd 密码 ip地址（*代表随机）</div><div class="line">username  pptpd   passwd  *</div></pre></td></tr></table></figure></p>
+<p>剩下的是防火墙问题。最简单是关闭防火墙。<code>service iptables stop</code>，或者添加防火墙端口开放。<br>PPTP主要开放如下几个端口<br>1723 TCP<br>43   TCP/UDP<br>53   UDP(这个是DNS端口吧。貌似不开连上去上不了网)</p>
+<h3 id="iptables-防火墙配置"><a href="#iptables-防火墙配置" class="headerlink" title="iptables 防火墙配置"></a>iptables 防火墙配置</h3><p>配置 iptables 设置，允许 PPTP 客户端访问：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">iptables -A INPUT -i ppp+ -j ACCEPT</div><div class="line">iptables -A OUTPUT -o ppp+ -j ACCEPT</div><div class="line"></div><div class="line">iptables -A INPUT -p tcp --dport 1723 -j ACCEPT</div><div class="line">iptables -A INPUT -p 47 -j ACCEPT</div><div class="line">iptables -A OUTPUT -p 47 -j ACCEPT</div><div class="line">iptables -A INPUT -p 54 -j ACCEPT</div><div class="line">iptables -A OUTPUT -p 54 -j ACCEPT</div><div class="line"></div><div class="line">iptables -F FORWARD</div><div class="line">iptables -A FORWARD -j ACCEPT</div><div class="line"></div><div class="line">iptables -A POSTROUTING -t nat -o eth0 -j MASQUERADE</div><div class="line">iptables -A POSTROUTING -t nat -o ppp+ -j MASQUERADE</div></pre></td></tr></table></figure></p>
+<p>使用下面命令保存新的 iptables 规则：<br><figure class="highlight plain"><figcaption><span>save iptables```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemd 用户需要使用：</div><div class="line">```iptables-save &gt; /etc/iptables/iptables.rules</div></pre></td></tr></table></figure></p>
+<h3 id="ufw-防火墙配置"><a href="#ufw-防火墙配置" class="headerlink" title="ufw 防火墙配置"></a>ufw 防火墙配置</h3><p>在 /etc/default/ufw中，修改默认的转发规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/etc/default/ufw</div><div class="line">DEFAULT_FORWARD_POLICY=”ACCEPT”</div><div class="line">修改/etc/ufw/before.rules，添加如下配置到 *filter 之前</div><div class="line">/etc/ufw/before.rules</div><div class="line"># nat Table rules</div><div class="line">*nat</div><div class="line">:POSTROUTING ACCEPT [0:0]</div><div class="line"></div><div class="line"># Allow traffic from clients to eth0</div><div class="line">-A POSTROUTING -s 172.16.36.0/24 -o eth0 -j MASQUERADE</div><div class="line"></div><div class="line"># don.t delete the .COMMIT. line or these nat table rules won.t be processed</div><div class="line">COMMIT</div></pre></td></tr></table></figure></p>
+<p>代开端口 1723：<br><figure class="highlight plain"><figcaption><span>allow 1723```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重启ufw</div></pre></td></tr></table></figure></p>
+<p>ufw disable<br>ufw enable<br><code>``
+还有Centos7 使用的是自己的firewall，firewall的使用</code>firewall-cmd`来控制防火墙。如果使用centos7的话可以自行百度。也可以换成iptables</p>
+<p>哦对了还要开启IP转发</p>
+<h3 id="IP转发"><a href="#IP转发" class="headerlink" title="IP转发"></a>IP转发</h3><p>在<code>/etc/sysctl.conf</code>中修改或添加下面这段<br><code>net.ipv4.ip_forward=1</code></p>
+<h3 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h3><p>关于服务的启动方式分两种个暂时我就只试过两种<br>原先的service启动方式<br><code>service pptpd start</code><br>后来linux改成systemd的服务管理器。相关资料去看<a href="http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html" target="_blank" rel="external">systemd</a><br><code>systemctl start pptpd.service</code><br><a href="http://www.vultr.com/?ref=6993197-3B" target="_blank" rel="external">20$优惠连接</a><br><a href="http://www.vultr.com/?ref=6992791" target="_blank" rel="external">10$连接</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VPN-PPTP/" rel="tag">#VPN PPTP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/19/初次见面-请多关照/" rel="next" title="初次见面 请多关照">
+                <i class="fa fa-chevron-left"></i> 初次见面 请多关照
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/28/多线程/" rel="prev" title="多线程">
+                多线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="樱の泪" />
+          <p class="site-author-name" itemprop="name">樱の泪</p>
+          <p class="site-description motion-element" itemprop="description">樱色渐随春雨尽 容颜难在满忧思</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化技术"><span class="nav-number">1.</span> <span class="nav-text">虚拟化技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载安装pptp"><span class="nav-number">2.</span> <span class="nav-text">下载安装pptp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于pptp协议"><span class="nav-number">3.</span> <span class="nav-text">关于pptp协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">4.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables-防火墙配置"><span class="nav-number">5.</span> <span class="nav-text">iptables 防火墙配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ufw-防火墙配置"><span class="nav-number">6.</span> <span class="nav-text">ufw 防火墙配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP转发"><span class="nav-number">7.</span> <span class="nav-text">IP转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务启动"><span class="nav-number">8.</span> <span class="nav-text">服务启动</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">樱の泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql nginx 工作日志 python wordpress," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="2016年10月12日16:03:57
+
+
+第一个问题
+
+
+
+可能会出现的问题
+
+
+
+Mysql常用命令
+
+
+
+wordpress常识
+
+
+
+
+123456789101112131415python -m serial.tools.list_ports #查看本机串口命令mysql -uroot -p1qazxsw2#本机mysql目录/usr/local/nginx/conf/vhost #ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于wordpress更换端口之后的问题以及mysql配置和python串口通讯">
+<meta property="og:url" content="http://yoursite.com/2016/10/03/关于wordpress更换端口之后的问题以及mysql配置和python串口通讯/index.html">
+<meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="2016年10月12日16:03:57
+
+
+第一个问题
+
+
+
+可能会出现的问题
+
+
+
+Mysql常用命令
+
+
+
+wordpress常识
+
+
+
+
+123456789101112131415python -m serial.tools.list_ports #查看本机串口命令mysql -uroot -p1qazxsw2#本机mysql目录/usr/local/nginx/conf/vhost #ng">
+<meta property="og:updated_time" content="2016-10-13T01:55:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于wordpress更换端口之后的问题以及mysql配置和python串口通讯">
+<meta name="twitter:description" content="2016年10月12日16:03:57
+
+
+第一个问题
+
+
+
+可能会出现的问题
+
+
+
+Mysql常用命令
+
+
+
+wordpress常识
+
+
+
+
+123456789101112131415python -m serial.tools.list_ports #查看本机串口命令mysql -uroot -p1qazxsw2#本机mysql目录/usr/local/nginx/conf/vhost #ng">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 关于wordpress更换端口之后的问题以及mysql配置和python串口通讯 | Sakura </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Sakura</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">樱色渐随春雨尽 容颜难在满忧思</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于wordpress更换端口之后的问题以及mysql配置和python串口通讯
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-03T20:23:26+08:00" content="2016-10-03">
+              2016-10-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2016年10月12日16-03-57"><a href="#2016年10月12日16-03-57" class="headerlink" title="2016年10月12日16:03:57"></a>2016年10月12日16:03:57</h1><!-- vscode-markdown-toc -->
+<ul>
+<li><ol>
+<li><a href="#-0">第一个问题</a></li>
+</ol>
+</li>
+<li><ol>
+<li><a href="#-1">可能会出现的问题</a></li>
+</ol>
+</li>
+<li><ol>
+<li><a href="#Mysql-2">Mysql常用命令</a></li>
+</ol>
+</li>
+<li><ol>
+<li><a href="#wordpress-3">wordpress常识</a></li>
+</ol>
+</li>
+</ul>
+<!-- /vscode-markdown-toc -->
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">python -m serial.tools.list_ports #查看本机串口命令</div><div class="line"></div><div class="line">mysql -uroot -p1qazxsw2#本机mysql目录</div><div class="line"></div><div class="line">/usr/local/nginx/conf/vhost #nginx目录</div><div class="line"></div><div class="line">/etc/my.cnf#mysql配置文件</div><div class="line"></div><div class="line">flush privileges; #刷新数据库设置</div><div class="line"></div><div class="line">GRANT ALL PRIVILEGES ON shandong.* TO &apos;demo&apos;@&apos;%&apos;WITH GRANT OPTION </div><div class="line"></div><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;1qazxsw2&apos; WITH GRANT OPTION</div><div class="line"></div><div class="line">$P$Bs1WpqdRPP8CeLYkA3QwcC5ANOSzN3.</div></pre></td></tr></table></figure>
+<p><b> URL重写  rewrite<b></b></b></p>
+<h2 id="1-第一个问题"><a href="#1-第一个问题" class="headerlink" title="1. 第一个问题"></a>1. <a name="-0"></a>第一个问题</h2><blockquote>
+<p>修改nginx配置文件 修改域名检查配置文件是否正确 nginx testconfig(待定)检测配置文件是否正确<br>查看wordpress配置文件<code>wp-config.php</code>中数据库连接名和账号密码<br>连接数据库 修改表wp-option中site-url 和 home字段与nginx中设置的域名一至</p>
+</blockquote>
+<h2 id="2-可能会出现的问题"><a href="#2-可能会出现的问题" class="headerlink" title="2. 可能会出现的问题"></a>2. <a name="-1"></a>可能会出现的问题</h2><blockquote>
+<p>数据库没有给外部网络的访问权限<br>解决方法:<code>GRANT ALL PRIVILEGES ON *.* TO &#39;&lt;你的用户名&gt;&#39;@&#39;%&#39; IDENTIFIED BY &#39;&lt;你的密码&gt;&#39; WITH GRANT OPTION</code><br>看不懂查 SQL语句 GRANT<br>去看防火墙3306端口是否开放。简单粗暴的方法就是关闭防火墙<br>一般的linux系统使用的是iptables防火墙，Centos 7以上使用的是firewall 其命令是firewall-cmd –add-port=3306/udp<br>实在不会使用ssh登陆远程主机 输入命令 mysql -u用户名 -p密码 注意不要有空格</p>
+</blockquote>
+<h2 id="3-Mysql常用命令"><a href="#3-Mysql常用命令" class="headerlink" title="3. Mysql常用命令"></a>3. <a name="Mysql-2"></a>Mysql常用命令</h2><blockquote>
+<p>show databases;#查看当前mysql中所有的数据库<br>use 数据库名;#进入数据库<br>show tables;查看当前数据库中所有表<br>select * from 表;#查看表中所有的数据<br>update set 字段 = 值 where 条件;</p>
+</blockquote>
+<h2 id="4-wordpress常识"><a href="#4-wordpress常识" class="headerlink" title="4. wordpress常识"></a>4. <a name="wordpress-3"></a>wordpress常识</h2><blockquote>
+<p>主题目录<code>wp-content\themes</code><br>插件目录<code>wp-content\wp-plugins</code><br>配置文件<code>wp-config.php</code></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql-nginx-工作日志-python-wordpress/" rel="tag">#mysql nginx 工作日志 python wordpress</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/01/linux-ssh-连接慢-超时中断-打字卡等问题解决/" rel="next" title="linux ssh 连接慢 超时中断 等问题解决">
+                <i class="fa fa-chevron-left"></i> linux ssh 连接慢 超时中断 等问题解决
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/03/Linux-22端口被爆破的解决办法/" rel="prev" title="Linux 22端口被爆破的解决办法">
+                Linux 22端口被爆破的解决办法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="樱の泪" />
+          <p class="site-author-name" itemprop="name">樱の泪</p>
+          <p class="site-description motion-element" itemprop="description">樱色渐随春雨尽 容颜难在满忧思</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2016年10月12日16-03-57"><span class="nav-number">1.</span> <span class="nav-text">2016年10月12日16:03:57</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-第一个问题"><span class="nav-number">1.1.</span> <span class="nav-text">1. 第一个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-可能会出现的问题"><span class="nav-number">1.2.</span> <span class="nav-text">2. 可能会出现的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Mysql常用命令"><span class="nav-number">1.3.</span> <span class="nav-text">3. Mysql常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-wordpress常识"><span class="nav-number">1.4.</span> <span class="nav-text">4. wordpress常识</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">樱の泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
