@@ -1,0 +1,571 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="关于继承java和python的一些区别为什么要写这篇博客。因为最近在弄树莓派鉴于的c++只是二级水平而python又比较容易以前也接触了一些所以选择用python来做这些琐事但是学的语言太多了难免有些记混，觉得不对的地方所以拿出来单练一下
+首先谈谈语法：
+python中继承使用 class 类名(父类) 来实现继承java中使用extnds关键字来实现继承
+java继承的实现与输出:123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于继承java和python的一些区别">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/继承python与java之间的区别/index.html">
+<meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="关于继承java和python的一些区别为什么要写这篇博客。因为最近在弄树莓派鉴于的c++只是二级水平而python又比较容易以前也接触了一些所以选择用python来做这些琐事但是学的语言太多了难免有些记混，觉得不对的地方所以拿出来单练一下
+首先谈谈语法：
+python中继承使用 class 类名(父类) 来实现继承java中使用extnds关键字来实现继承
+java继承的实现与输出:123456">
+<meta property="og:updated_time" content="2016-10-18T07:01:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于继承java和python的一些区别">
+<meta name="twitter:description" content="关于继承java和python的一些区别为什么要写这篇博客。因为最近在弄树莓派鉴于的c++只是二级水平而python又比较容易以前也接触了一些所以选择用python来做这些琐事但是学的语言太多了难免有些记混，觉得不对的地方所以拿出来单练一下
+首先谈谈语法：
+python中继承使用 class 类名(父类) 来实现继承java中使用extnds关键字来实现继承
+java继承的实现与输出:123456">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 关于继承java和python的一些区别 | Sakura </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Sakura</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">樱色渐随春雨尽 容颜难在满忧思</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于继承java和python的一些区别
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-18T15:00:10+08:00" content="2016-10-18">
+              2016-10-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="关于继承java和python的一些区别"><a href="#关于继承java和python的一些区别" class="headerlink" title="关于继承java和python的一些区别"></a>关于继承java和python的一些区别</h1><p>为什么要写这篇博客。因为最近在弄树莓派鉴于的c++只是二级水平而python又比较容易以前也接触了一些所以选择用python来做这些琐事<br>但是学的语言太多了难免有些记混，觉得不对的地方所以拿出来单练一下</p>
+<p><strong>首先谈谈语法：</strong></p>
+<p>python中继承使用 <code>class 类名(父类)</code> 来实现继承<br>java中使用<code>extnds</code>关键字来实现继承</p>
+<p><strong>java继承的实现与输出:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class Root &#123;</div><div class="line">    public Root()&#123;</div><div class="line">        System.out.println(&quot;enter root&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">class Root2 extends Root&#123;</div><div class="line">    public Root2()&#123;</div><div class="line">        System.out.println(&quot;enter root2&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void say()&#123;</div><div class="line">        System.out.println(&quot;father&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Main extends Root2 &#123;</div><div class="line"></div><div class="line">    public Main()&#123;</div><div class="line">        System.out.println(&quot;main&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void say() &#123;</div><div class="line">        super.say();</div><div class="line">        System.out.println(&quot;樱の泪&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Main main = new Main();</div><div class="line">        main.say();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">-------------------console-------------------</div><div class="line">enter root</div><div class="line">enter root2</div><div class="line">main</div><div class="line">樱の泪</div></pre></td></tr></table></figure></p>
+<p><strong>python版本的：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Root(object):</div><div class="line">    def __init__(self):</div><div class="line">        print(&quot;this is Root&quot;)</div><div class="line"></div><div class="line"></div><div class="line">class B(Root):</div><div class="line">    def __init__(self):</div><div class="line">        print(&quot;enter B&quot;)</div><div class="line">        # print(self)  # this will print &lt;__main__.D object at 0x...&gt;</div><div class="line">        super(B, self).__init__()</div><div class="line">        print(&quot;leave B&quot;)</div><div class="line"></div><div class="line"></div><div class="line">class C(Root):</div><div class="line">    def __init__(self):</div><div class="line">        print(&quot;enter C&quot;)</div><div class="line">        super(C, self).__init__()</div><div class="line">        print(&quot;leave C&quot;)</div><div class="line"></div><div class="line"></div><div class="line">class D(B, C):</div><div class="line">    def __init__(self):</div><div class="line">        print(&quot;en  ter D&quot;)</div><div class="line">        super(D,self).__init__()</div><div class="line">        print(&quot;enter D&quot;)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">d = D()</div><div class="line">print(d.__class__.__mro__)</div><div class="line"></div><div class="line"></div><div class="line">-------------------console-------------------</div><div class="line">enter D</div><div class="line">enter B</div><div class="line">enter C</div><div class="line">this is Root</div><div class="line">leave C</div><div class="line">leave B</div><div class="line">enter D</div><div class="line">(&lt;class &apos;__main__.D&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;, &lt;class &apos;__main__.C&apos;&gt;, &lt;class &apos;__main__.Root&apos;&gt;, &lt;type &apos;object&apos;&gt;)</div></pre></td></tr></table></figure>
+<p>这里需要注意下这两个语言的区别：<br>关于Super这个关键字的<br>刚才试验中我发现java的构造函数中带不带<code>super()</code>调用都会默认调用父类的构造函数<br>但是其他方法必须手写<code>super()</code>才会调用父类的方法</p>
+<p>关于 <code>super</code> 学java的同志们肯定都知道在java中这个关键字其实就是指向父类<br>但是在python中 这个关键字并不是指向父类 而是指向MRO中的下一个类</p>
+<p>MRO 全称 Method Resolution Order，它代表了类继承的顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def super(cls, inst):</div><div class="line">    mro = inst.__class__.mro()</div><div class="line">    return mro[mro.index(cls) + 1]</div></pre></td></tr></table></figure>
+<p>上面python继承的例子中就已经可以看到最后一行输出就是python的继承顺序首先是自身然后是B，C最后才是root</p>
+<p>于是，MRO 中类的顺序到底是怎么排的呢？<a href="https://rhettinger.wordpress.com/2011/05/26/super-considered-super/" target="_blank" rel="external">Python’s super() considered super!</a>中已经有很好的解释，我翻译一下：<br>在 MRO 中，基类永远出现在派生类后面，如果有多个基类，基类的相对顺序保持不变。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/09/python-slots-内存占用问题/" rel="next" title="python __slots__ 内存占用问题">
+                <i class="fa fa-chevron-left"></i> python __slots__ 内存占用问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/18/python 字符串格式化/" rel="prev" title="python  字符串格式化">
+                python  字符串格式化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="樱の泪" />
+          <p class="site-author-name" itemprop="name">樱の泪</p>
+          <p class="site-description motion-element" itemprop="description">樱色渐随春雨尽 容颜难在满忧思</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于继承java和python的一些区别"><span class="nav-number">1.</span> <span class="nav-text">关于继承java和python的一些区别</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">樱の泪</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

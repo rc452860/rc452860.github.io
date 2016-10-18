@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux ssh," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -84,19 +84,82 @@
 
 
 
-<meta name="description" content="解决超时问题ssh 的配置文件在/etc/ssh/sshd_config下面，不知道不同的操作系统是不是回会有所不同。接下来研究下这个文件下又那些参数会导致ssh卡顿以及掉线的。
-ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端发送一条消息默认是注释状态所以现在我们打开它。ClientAliveCountMax 3示服务器发出请求后客户端没有响应的次数达到一定值">
+<meta name="description" content="python  字符串格式化书写本文的目的是应为在工作中使用python操作串口需要转换二进制和十六进制然而本人对python处理二进制的库函数并不是很熟悉于是各种google顺便记录在此
+2.6版本之前的%
+
+
+格式化符号
+说明
+
+
+
+
+%c
+转换成字符（ASCII 码值，或者长度为一的字符串）
+
+
+%r
+优先用repr()函数进行字符串转换
+
+
+%s
+优先用str()函数进行字符串转换
+
+
+%">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux ssh 连接慢 超时中断 等问题解决">
-<meta property="og:url" content="http://yoursite.com/2016/10/01/linux-ssh-连接慢-超时中断-打字卡等问题解决/index.html">
+<meta property="og:title" content="python  字符串格式化">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/python 字符串格式化/index.html">
 <meta property="og:site_name" content="Sakura">
-<meta property="og:description" content="解决超时问题ssh 的配置文件在/etc/ssh/sshd_config下面，不知道不同的操作系统是不是回会有所不同。接下来研究下这个文件下又那些参数会导致ssh卡顿以及掉线的。
-ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端发送一条消息默认是注释状态所以现在我们打开它。ClientAliveCountMax 3示服务器发出请求后客户端没有响应的次数达到一定值">
-<meta property="og:updated_time" content="2016-10-09T04:01:17.000Z">
+<meta property="og:description" content="python  字符串格式化书写本文的目的是应为在工作中使用python操作串口需要转换二进制和十六进制然而本人对python处理二进制的库函数并不是很熟悉于是各种google顺便记录在此
+2.6版本之前的%
+
+
+格式化符号
+说明
+
+
+
+
+%c
+转换成字符（ASCII 码值，或者长度为一的字符串）
+
+
+%r
+优先用repr()函数进行字符串转换
+
+
+%s
+优先用str()函数进行字符串转换
+
+
+%">
+<meta property="og:updated_time" content="2016-10-18T07:02:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux ssh 连接慢 超时中断 等问题解决">
-<meta name="twitter:description" content="解决超时问题ssh 的配置文件在/etc/ssh/sshd_config下面，不知道不同的操作系统是不是回会有所不同。接下来研究下这个文件下又那些参数会导致ssh卡顿以及掉线的。
-ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端发送一条消息默认是注释状态所以现在我们打开它。ClientAliveCountMax 3示服务器发出请求后客户端没有响应的次数达到一定值">
+<meta name="twitter:title" content="python  字符串格式化">
+<meta name="twitter:description" content="python  字符串格式化书写本文的目的是应为在工作中使用python操作串口需要转换二进制和十六进制然而本人对python处理二进制的库函数并不是很熟悉于是各种google顺便记录在此
+2.6版本之前的%
+
+
+格式化符号
+说明
+
+
+
+
+%c
+转换成字符（ASCII 码值，或者长度为一的字符串）
+
+
+%r
+优先用repr()函数进行字符串转换
+
+
+%s
+优先用str()函数进行字符串转换
+
+
+%">
 
 
 
@@ -114,7 +177,7 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
   };
 </script>
 
-  <title> linux ssh 连接慢 超时中断 等问题解决 | Sakura </title>
+  <title> python  字符串格式化 | Sakura </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +297,7 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
             
             
               
-                linux ssh 连接慢 超时中断 等问题解决
+                python  字符串格式化
               
             
           </h1>
@@ -246,8 +309,8 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T13:54:34+08:00" content="2016-10-01">
-              2016-10-01
+            <time itemprop="dateCreated" datetime="2016-10-18T15:00:10+08:00" content="2016-10-18">
+              2016-10-18
             </time>
           </span>
 
@@ -274,14 +337,82 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
       
 
       
-        <h3 id="解决超时问题"><a href="#解决超时问题" class="headerlink" title="解决超时问题"></a>解决超时问题</h3><p>ssh 的配置文件在<code>/etc/ssh/sshd_config</code>下面，不知道不同的操作系统是不是回会有所不同。接下来研究下这个文件下又那些参数会导致ssh卡顿以及掉线的。</p>
-<p><code>ClientAliveInterval  60</code>这个个参数是指多少秒之后服务器向客户端发送一条消息默认是注释状态所以现在我们打开它。<br><code>ClientAliveCountMax 3</code>示服务器发出请求后客户端没有响应的次数达到一定值就自动断开</p>
-<p>上述两个修改后执行<code>service sshd reload</code>，新版本的linux貌似使用的systemd服务管理系统，那么命令就是<code>systemctl reload sshd</code>。其实都差不多</p>
-<h3 id="结局连接慢问题"><a href="#结局连接慢问题" class="headerlink" title="结局连接慢问题"></a>结局连接慢问题</h3><ol>
-<li>DNS反向解析的问题<br><code>UseDNS no</code> 因为在ssh远程登录到服务器的时候，服务器会反向解析登<br>录的机器的IP的主机名引起的慢的问题</li>
-<li>关闭ssh的gssapi认证<br><code>GSSAPIAuthentication no</code>GSSAPI ( Generic Security Services<br>Application Programming Interface) 是一套类似Kerberos 5 的通用网络安<br>全系统接口。该接口是对各种不同的客户端服务器安全机制的封装，以消除<br>安全接口的不同，降低编程难度。但该接口在目标机器无域名解析时会有问<br>题</li>
-</ol>
-
+        <h1 id="python-字符串格式化"><a href="#python-字符串格式化" class="headerlink" title="python  字符串格式化"></a>python  字符串格式化</h1><p>书写本文的目的是应为在工作中使用python操作串口需要转换二进制和十六进制<br>然而本人对python处理二进制的库函数并不是很熟悉于是各种google顺便记录在此</p>
+<h2 id="2-6版本之前的"><a href="#2-6版本之前的" class="headerlink" title="2.6版本之前的%"></a>2.6版本之前的%</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">格式化符号</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">%c</td>
+<td style="text-align:center">转换成字符（ASCII 码值，或者长度为一的字符串）</td>
+</tr>
+<tr>
+<td style="text-align:center">%r</td>
+<td style="text-align:center">优先用repr()函数进行字符串转换</td>
+</tr>
+<tr>
+<td style="text-align:center">%s</td>
+<td style="text-align:center">优先用str()函数进行字符串转换</td>
+</tr>
+<tr>
+<td style="text-align:center">%d / %i</td>
+<td style="text-align:center">转成有符号十进制数</td>
+</tr>
+<tr>
+<td style="text-align:center">%u</td>
+<td style="text-align:center">转成无符号十进制数</td>
+</tr>
+<tr>
+<td style="text-align:center">%o</td>
+<td style="text-align:center">转成无符号八进制数</td>
+</tr>
+<tr>
+<td style="text-align:center">%x / %X</td>
+<td style="text-align:center">转成无符号十六进制数（x / X 代表转换后的十六进制字符的大小写）</td>
+</tr>
+<tr>
+<td style="text-align:center">%e / %E</td>
+<td style="text-align:center">转成科学计数法（e / E控制输出e / E）</td>
+</tr>
+<tr>
+<td style="text-align:center">%f / %F</td>
+<td style="text-align:center">转成浮点数（小数部分自然截断）</td>
+</tr>
+<tr>
+<td style="text-align:center">%g / %G</td>
+<td style="text-align:center">%e和%f / %E和%F 的简写</td>
+</tr>
+<tr>
+<td style="text-align:center">%%</td>
+<td style="text-align:center">输出% （格式化字符串里面包括百分号，那么必须使用%%）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>%s 字符串 (采用str()的显示)</li>
+<li>%r 字符串 (采用repr()的显示)</li>
+<li>%c 单个字符</li>
+<li>%b 二进制整数</li>
+<li>%d 十进制整数</li>
+<li>%i 十进制整数</li>
+<li>%o 八进制整数</li>
+<li>%x 十六进制整数</li>
+<li>%e 指数 (基底写为e)</li>
+<li>%E 指数 (基底写为E)</li>
+<li>%f 浮点数</li>
+<li>%F 浮点数，与上相同</li>
+<li>%g 指数(e)或浮点数 (根据显示长度)</li>
+<li>%G 指数(E)或浮点数 (根据显示长度)</li>
+</ul>
+<h2 id="2-6版本之后的str-format函数"><a href="#2-6版本之后的str-format函数" class="headerlink" title="2.6版本之后的str.format函数"></a>2.6版本之后的str.format函数</h2><h3 id="填充与对齐"><a href="#填充与对齐" class="headerlink" title="填充与对齐"></a>填充与对齐</h3><p>填充常跟对齐一起使用<br>^、&lt;、&gt;分别是居中、左对齐、右对齐，后面带宽度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;&#123;0:&lt;2&#125; &#123;1:^5&#125; &#123;2:&gt;2&#125;&quot;.format(i,i,i)</div></pre></td></tr></table></figure></p>
+<p>:号后面带填充的字符，只能是一个字符，不指定的话默认是用空格填充</p>
+<p>精度与类型f<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;:.2f&#125;&apos;.format(321.33345)</div></pre></td></tr></table></figure></p>
+<h3 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h3><p>主要就是进制了，b、d、o、x分别是二进制、十进制、八进制、十六进制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;&#123;0&#125;,&#123;1&#125;&apos;.format(&apos;sakura&apos;,22)  </div><div class="line">&gt;&gt;&gt; &apos;sakura,22&apos;</div><div class="line">&gt;&gt;&gt; &apos;&#123;name&#125;,&#123;age&#125;&apos;.format(age=18,name=&apos;sakura&apos;) </div><div class="line">&gt;&gt;&gt; &apos;sakura,22&apos;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -302,7 +433,7 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
       
         <div class="post-tags">
           
-            <a href="/tags/linux-ssh/" rel="tag">#linux ssh</a>
+            <a href="/tags/python/" rel="tag">#python</a>
           
         </div>
       
@@ -311,17 +442,13 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/26/VPN搭建的一些问题/" rel="next" title="关于VPN搭建的一些问题">
-                <i class="fa fa-chevron-left"></i> 关于VPN搭建的一些问题
+              <a href="/2016/10/18/继承python与java之间的区别/" rel="next" title="关于继承java和python的一些区别">
+                <i class="fa fa-chevron-left"></i> 关于继承java和python的一些区别
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/03/关于wordpress更换端口之后的问题以及mysql配置和python串口通讯/" rel="prev" title="关于wordpress更换端口之后的问题以及mysql配置和python串口通讯">
-                关于wordpress更换端口之后的问题以及mysql配置和python串口通讯 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -428,7 +555,7 @@ ClientAliveInterval  60这个个参数是指多少秒之后服务器向客户端
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超时问题"><span class="nav-number">1.</span> <span class="nav-text">解决超时问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结局连接慢问题"><span class="nav-number">2.</span> <span class="nav-text">结局连接慢问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-字符串格式化"><span class="nav-number">1.</span> <span class="nav-text">python  字符串格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6版本之前的"><span class="nav-number">1.1.</span> <span class="nav-text">2.6版本之前的%</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6版本之后的str-format函数"><span class="nav-number">1.2.</span> <span class="nav-text">2.6版本之后的str.format函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#填充与对齐"><span class="nav-number">1.2.1.</span> <span class="nav-text">填充与对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他类型"><span class="nav-number">1.2.2.</span> <span class="nav-text">其他类型</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
